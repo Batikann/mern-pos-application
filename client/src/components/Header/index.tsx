@@ -26,7 +26,7 @@ const Header = () => {
             className="rounded-full w-full"
           />
         </div>
-        <div className="md:static fixed bottom-0 left-0 md:w-auto w-screen md:bg-transparent bg-white  md:p-0 md:border-t-0 border-t p-4 ">
+        <div className="md:static fixed bottom-0 left-0 md:w-auto w-screen md:bg-transparent bg-white  md:p-0 md:border-t-0 border-t p-4 z-30 ">
           <ul className="flex items-center justify-between gap-7 text-center ">
             <li className="cursor-pointer">
               <a href="" className="hover:text-[#757779] transition-all">
