@@ -8,15 +8,16 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons'
 import { Input, Badge } from 'antd'
+import { Link } from 'react-router-dom'
 
 const Header = () => {
   return (
     <div className="border-b mb-6 ">
       <header className="py-4 px-6 flex items-center justify-between gap-10 max-w-7xl mx-auto ">
         <div className="logo">
-          <a href="#">
+          <Link to="/">
             <h2 className="md:text-4xl text-2xl font-bold">LOGO</h2>
-          </a>
+          </Link>
         </div>
         <div className="header-search flex-1">
           <Input
@@ -29,27 +30,27 @@ const Header = () => {
         <div className="md:static fixed bottom-0 left-0 md:w-auto w-screen md:bg-transparent bg-white  md:p-0 md:border-t-0 border-t p-4 z-30 ">
           <ul className="flex items-center justify-between gap-7 text-center ">
             <li className="cursor-pointer">
-              <a href="" className="hover:text-[#757779] transition-all">
+              <Link to="/" className="hover:text-[#757779] transition-all">
                 <HomeOutlined className="md:text-2xl text-xl  " />
                 <p className="md:text-xs text-[10px]">Home</p>
-              </a>
+              </Link>
             </li>
             <li className="cursor-pointer md:flex hidden">
-              <a
-                href=""
+              <Link
+                to="/cart"
                 className="hover:text-[#40a9ff] transition-all relative "
               >
                 <Badge count={5} size="small" className="mt-2">
                   <ShoppingCartOutlined className="md:text-2xl text-xl" />
                   <p className="md:text-xs text-[10px]">Cart</p>
                 </Badge>
-              </a>
+              </Link>
             </li>
             <li className="cursor-pointer">
-              <a href="" className="hover:text-[#40a9ff] transition-all">
+              <Link to="/bill" className="hover:text-[#40a9ff] transition-all">
                 <SnippetsOutlined className="md:text-2xl text-xl" />
                 <p className="md:text-xs text-[10px]">Order</p>
-              </a>
+              </Link>
             </li>
             <li className="cursor-pointer">
               <a href="" className="hover:text-[#40a9ff] transition-all">
