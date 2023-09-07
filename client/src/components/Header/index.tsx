@@ -53,16 +53,22 @@ const Header = () => {
               </Link>
             </li>
             <li className="cursor-pointer">
-              <a href="" className="hover:text-[#40a9ff] transition-all">
+              <Link
+                to="/customers"
+                className="hover:text-[#40a9ff] transition-all"
+              >
                 <UserOutlined className="md:text-2xl text-xl" />
                 <p className="md:text-xs text-[10px]">Customers</p>
-              </a>
+              </Link>
             </li>
             <li className="cursor-pointer">
-              <a href="" className="hover:text-[#40a9ff] transition-all">
+              <Link
+                to="/statistic"
+                className="hover:text-[#40a9ff] transition-all"
+              >
                 <BarChartOutlined className="md:text-2xl text-xl" />
-                <p className="md:text-xs text-[10px]">Istatistics</p>
-              </a>
+                <p className="md:text-xs text-[10px]">Statistics</p>
+              </Link>
             </li>
             <li className="cursor-pointer">
               <a href="" className="hover:text-[#40a9ff] transition-all">
