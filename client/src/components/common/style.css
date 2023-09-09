@@ -1,0 +1,3 @@
+.category-item {
+  @apply text-white font-bold px-10 py-6 cursor-pointer  transition-all flex justify-center items-center text-center min-w-[145px];
+}
