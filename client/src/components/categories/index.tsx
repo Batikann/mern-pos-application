@@ -3,16 +3,16 @@ import { PlusOutlined, EditOutlined } from '@ant-design/icons'
 import '../common/style.css'
 import { useEffect, useState } from 'react'
 import CategoryModal from '../Modal/CategoryModal'
+import CategoryEditModal from '../Modal/CategoryEditModal'
 
-interface Category {
-  _id: string
-  name: string
-}
-
-const Categories: React.FC = () => {
+const Categories: React.FC = ({
+  categories,
+  setNewCategory,
+  setCategories,
+}) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
-  const [categories, setCategories] = useState<Category[]>([])
-  const [newCategory, setNewCategory] = useState('')
+  const [categoryEditModal, setCategoryEditModal] = useState<boolean>(false)
+
   const showModal = () => {
     setIsModalOpen(true)
   }
@@ -21,17 +21,13 @@ const Categories: React.FC = () => {
     setIsModalOpen(false)
   }
 
-  const getCategories = async () => {
-    const response = await fetch(`http://localhost:5000/categories/get-all`, {
-      method: 'GET',
-    })
-    const data = await response.json()
-    setCategories(data)
+  const showCategoryEditModal = () => {
+    setCategoryEditModal(true)
   }
 
-  useEffect(() => {
-    getCategories()
-  }, [newCategory])
+  const handleCancelCategoryEditModal = () => {
+    setCategoryEditModal(false)
+  }
 
   return (
     <>
@@ -60,7 +56,10 @@ const Categories: React.FC = () => {
         >
           <PlusOutlined className="text-white font-bold " />
         </li>
-        <li className="bg-orange-700  hover:bg-orange-500 category-item ">
+        <li
+          className="bg-orange-700  hover:bg-orange-500 category-item "
+          onClick={showCategoryEditModal}
+        >
           <EditOutlined className="text-white font-bold" />
         </li>
       </ul>
@@ -69,6 +68,14 @@ const Categories: React.FC = () => {
         isModalOpen={isModalOpen}
         setIsModalOpen={setIsModalOpen}
         setNewCategory={setNewCategory}
+      />
+      <CategoryEditModal
+        categoryEditModal={categoryEditModal}
+        setCategoryEditModal={setCategoryEditModal}
+        handleCancelCategoryEditModal={handleCancelCategoryEditModal}
+        showCategoryEditModal={showCategoryEditModal}
+        categories={categories}
+        setCategories={setCategories}
       />
     </>
   )

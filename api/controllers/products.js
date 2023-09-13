@@ -10,6 +10,15 @@ const getProducts = async (req, res) => {
   }
 }
 
+const getProduct = async (req, res) => {
+  try {
+    const product = await Product.findById(req.params.id)
+    res.status(200).json(product)
+  } catch (error) {
+    res.status(400).json({ message: error.message })
+  }
+}
+
 //Create Product
 const createProduct = async (req, res) => {
   try {
@@ -56,4 +65,5 @@ module.exports = {
   getProducts,
   updateProduct,
   deleteProduct,
+  getProduct,
 }

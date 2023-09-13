@@ -8,9 +8,11 @@ interface CategoryCardProps {
 
 const CategoryCard = ({ title, bgColor, hoverBgColor }: CategoryCardProps) => {
   return (
-    <li className={`category-item ${bgColor} ${hoverBgColor}`}>
-      <span>{title}</span>
-    </li>
+    <ul>
+      <li className={`category-item ${bgColor} ${hoverBgColor}`}>
+        <span>{title}</span>
+      </li>
+    </ul>
   )
 }
 export default CategoryCard
