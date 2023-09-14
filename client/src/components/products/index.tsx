@@ -34,9 +34,9 @@ const Products: React.FC = ({ categories }) => {
   return (
     <>
       <div className="grid xl:grid-cols-5 lg:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 overflow-y-auto max-h-[calc(100vh-_+160px)] products-wrapper ">
-        {products.map((product) => {
+        {products.map((product, i) => {
           return (
-            <span key={product.id}>
+            <span key={i}>
               <ProductCard product={product} />
             </span>
           )

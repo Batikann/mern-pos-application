@@ -9,8 +9,11 @@ import {
 } from '@ant-design/icons'
 import { Input, Badge } from 'antd'
 import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Header = () => {
+  const cart = useSelector((state) => state.cart)
+
   return (
     <div className="border-b mb-6 ">
       <header className="py-4 px-6 flex items-center justify-between gap-10 max-w-7xl mx-auto ">
@@ -40,7 +43,11 @@ const Header = () => {
                 to="/cart"
                 className="hover:text-[#40a9ff] transition-all relative "
               >
-                <Badge count={5} size="small" className="mt-2">
+                <Badge
+                  count={cart.cartItems.length}
+                  size="small"
+                  className="mt-2"
+                >
                   <ShoppingCartOutlined className="md:text-2xl text-xl" />
                   <p className="md:text-xs text-[10px]">Cart</p>
                 </Badge>

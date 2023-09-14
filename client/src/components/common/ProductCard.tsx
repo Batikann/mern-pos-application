@@ -1,8 +1,16 @@
-import { Product } from '@/type'
+import { addProduct } from '@/redux/CartSlice'
+import { useAppDispatch } from '@/redux/store'
 
 const ProductCard = ({ product }) => {
+  const dispatch = useAppDispatch()
+  const handleClick = () => {
+    dispatch(addProduct({ ...product, quantity: 1 }))
+  }
   return (
-    <div className=" bg-white border hover:shadow-lg cursor-pointer select-none transiti-all ">
+    <div
+      className=" bg-white border hover:shadow-lg cursor-pointer select-none transiti-all "
+      onClick={handleClick}
+    >
       <div>
         <img
           src={product.img}

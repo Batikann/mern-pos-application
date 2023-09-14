@@ -28,7 +28,7 @@ export const Home = () => {
     getCategories()
   }, [newCategory])
   return (
-    <div className="max-w-full mx-auto px-6 max-[321px]:px-2 flex justify-between lg:gap-10 gap-6 flex-col md:flex-row md:pb-0 pb-24">
+    <div className="max-w-full mx-auto px-6 max-[321px]:px-2 flex justify-between lg:gap-10 gap-6 flex-col md:flex-row md:pb-0 pb-24 h-screen">
       <div className="categories overflow-auto max-h-[calc(100vh-_-60px)] md:pb-64 ">
         <Categories
           categories={categories}
