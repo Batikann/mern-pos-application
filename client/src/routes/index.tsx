@@ -7,8 +7,14 @@ import Login from '@/pages/Login'
 import Products from '@/pages/Products'
 import Register from '@/pages/Register'
 import Statistic from '@/pages/Statistic'
-import { createBrowserRouter } from 'react-router-dom'
-
+import { Navigate, createBrowserRouter } from 'react-router-dom'
+export const RouteControl = ({ children }) => {
+  if (localStorage.getItem('user')) {
+    return children
+  } else {
+    return <Navigate to="/login" />
+  }
+}
 export const router = createBrowserRouter([
   {
     path: '/',
@@ -16,27 +22,51 @@ export const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <Home />,
+        element: (
+          <RouteControl>
+            <Home />
+          </RouteControl>
+        ),
       },
       {
         path: '/cart',
-        element: <Cart />,
+        element: (
+          <RouteControl>
+            <Cart />
+          </RouteControl>
+        ),
       },
       {
         path: '/bill',
-        element: <Bill />,
+        element: (
+          <RouteControl>
+            <Bill />
+          </RouteControl>
+        ),
       },
       {
         path: '/customers',
-        element: <Customers />,
+        element: (
+          <RouteControl>
+            <Customers />
+          </RouteControl>
+        ),
       },
       {
         path: '/statistic',
-        element: <Statistic />,
+        element: (
+          <RouteControl>
+            <Statistic />
+          </RouteControl>
+        ),
       },
       {
         path: '/products',
-        element: <Products />,
+        element: (
+          <RouteControl>
+            <Products />
+          </RouteControl>
+        ),
       },
     ],
   },

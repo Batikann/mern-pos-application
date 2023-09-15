@@ -1,6 +1,13 @@
 import { Button, Modal } from 'antd'
+import { useRef } from 'react'
+import { useReactToPrint } from 'react-to-print'
+const BillModal = ({ title, isModalOpen, showModal, customer }: any) => {
+  const componentRef = useRef()
 
-const BillModal = ({ title, isModalOpen, showModal }: any) => {
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+  })
+
   return (
     <Modal
       title={title}
@@ -9,14 +16,14 @@ const BillModal = ({ title, isModalOpen, showModal }: any) => {
       footer={null}
       width={800}
     >
-      <section className="py-20 bg-black">
+      <section className="py-20 bg-black" ref={componentRef}>
         <div className="max-w-5xl mx-auto bg-white px-6">
           <article className="overflow-hidden">
             <div className="text-4xl font-bold text-slate-700 my-6">LOGO</div>
             <div className="flex gap-4 justify-between">
               <div className="text-md flex flex-col gap-1">
                 <p className="font-bold text-slate-700">Bill Details</p>
-                <p>Unwrapped</p>
+                <p>{customer?.customerName}</p>
                 <p>Fake Street 123</p>
                 <p>San Javier</p>
                 <p>CA 1234</p>
@@ -30,9 +37,9 @@ const BillModal = ({ title, isModalOpen, showModal }: any) => {
               </div>
               <div className="text-md flex flex-col gap-1">
                 <p className="font-bold text-slate-700">Bill Number</p>
-                <p>0041</p>
+                <p>000{Math.floor(Math.random() * 100)}</p>
                 <p className="font-bold text-slate-700">Date of Issue</p>
-                <p>2023-09-05</p>
+                <p>{customer?.createdAt.substring(0, 10)}</p>
               </div>
               <div className="text-md  flex-col gap-1 hidden sm:flex">
                 <p className="font-bold text-slate-700">Terms</p>
@@ -73,7 +80,7 @@ const BillModal = ({ title, isModalOpen, showModal }: any) => {
                       scope="col"
                       className=" text-center py-4 text-sm font-normal text-slate-700 sm:table-cell hidden"
                     >
-                      Piece
+                      Quantity
                     </th>
                     <th
                       scope="col"
@@ -84,122 +91,42 @@ const BillModal = ({ title, isModalOpen, showModal }: any) => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className=" border-b border-slate-200">
-                    <td className="py-4 hidden sm:table-cell">
-                      <img
-                        src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-card-40-iphone14pro-202209_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1663611329204"
-                        alt=""
-                        className="w-16 h-16 object-contain "
-                      />
-                    </td>
-                    <td>
-                      <p className="font-medium sm:py-0 py-6">
-                        Iphone 14 Pro Max
-                      </p>
-                    </td>
-                    <td className="text-center hidden sm:table-cell">
-                      <p>999$</p>
-                    </td>
-                    <td className="text-center hidden sm:table-cell">
-                      <p>3</p>
-                    </td>
-                    <td className="sm:text-center text-right hidden sm:table-cell">
-                      <p>2997$</p>
-                    </td>
-                    <td
-                      className="sm:text-center text-right sm:hidden"
-                      colSpan={4}
-                    >
-                      <p>2997$</p>
-                    </td>
-                  </tr>
-                  <tr className=" border-b border-slate-200">
-                    <td className="py-4 hidden sm:table-cell">
-                      <img
-                        src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-card-40-iphone14pro-202209_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1663611329204"
-                        alt=""
-                        className="w-16 h-16 object-contain "
-                      />
-                    </td>
-                    <td>
-                      <p className="font-medium sm:py-0 py-6">
-                        Iphone 14 Pro Max
-                      </p>
-                    </td>
-                    <td className="text-center hidden sm:table-cell">
-                      <p>999$</p>
-                    </td>
-                    <td className="text-center hidden sm:table-cell">
-                      <p>3</p>
-                    </td>
-                    <td className="sm:text-center text-right hidden sm:table-cell">
-                      <p>2997$</p>
-                    </td>
-                    <td
-                      className="sm:text-center text-right sm:hidden"
-                      colSpan={4}
-                    >
-                      <p>2997$</p>
-                    </td>
-                  </tr>
-                  <tr className=" border-b border-slate-200">
-                    <td className="py-4 hidden sm:table-cell">
-                      <img
-                        src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-card-40-iphone14pro-202209_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1663611329204"
-                        alt=""
-                        className="w-16 h-16 object-contain "
-                      />
-                    </td>
-                    <td>
-                      <p className="font-medium sm:py-0 py-6">
-                        Iphone 14 Pro Max
-                      </p>
-                    </td>
-                    <td className="text-center hidden sm:table-cell">
-                      <p>999$</p>
-                    </td>
-                    <td className="text-center hidden sm:table-cell">
-                      <p>3</p>
-                    </td>
-                    <td className="sm:text-center text-right hidden sm:table-cell">
-                      <p>2997$</p>
-                    </td>
-                    <td
-                      className="sm:text-center text-right sm:hidden"
-                      colSpan={4}
-                    >
-                      <p>2997$</p>
-                    </td>
-                  </tr>
-                  <tr className=" border-b border-slate-200">
-                    <td className="py-4 hidden sm:table-cell">
-                      <img
-                        src="https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-card-40-iphone14pro-202209_FMT_WHH?wid=508&hei=472&fmt=p-jpg&qlt=95&.v=1663611329204"
-                        alt=""
-                        className="w-16 h-16 object-contain "
-                      />
-                    </td>
-                    <td>
-                      <p className="font-medium sm:py-0 py-6">
-                        Iphone 14 Pro Max
-                      </p>
-                    </td>
-                    <td className="text-center hidden sm:table-cell">
-                      <p>999$</p>
-                    </td>
-                    <td className="text-center hidden sm:table-cell">
-                      <p>3</p>
-                    </td>
-                    <td className="sm:text-center text-right hidden sm:table-cell">
-                      <p>2997$</p>
-                    </td>
-                    <td
-                      className="sm:text-center text-right sm:hidden"
-                      colSpan={4}
-                    >
-                      <p>2997$</p>
-                    </td>
-                  </tr>
+                  {customer?.cartItems.map((cartItem) => {
+                    return (
+                      <tr
+                        className=" border-b border-slate-200"
+                        key={customer?._id}
+                      >
+                        <td className="py-4 hidden sm:table-cell">
+                          <img
+                            src={cartItem.img}
+                            alt={cartItem.title}
+                            className="w-16 h-16 object-contain "
+                          />
+                        </td>
+                        <td>
+                          <p className="font-medium sm:py-0 py-6">
+                            {cartItem.title}
+                          </p>
+                        </td>
+                        <td className="text-center hidden sm:table-cell">
+                          <p>{cartItem.price}$</p>
+                        </td>
+                        <td className="text-center hidden sm:table-cell">
+                          <p>{cartItem.quantity}</p>
+                        </td>
+                        <td className="sm:text-center text-right hidden sm:table-cell">
+                          <p>{cartItem.price * cartItem.quantity}$</p>
+                        </td>
+                        <td
+                          className="sm:text-center text-right sm:hidden"
+                          colSpan={4}
+                        >
+                          <p>{cartItem.price * cartItem.quantity}toFixed(2)$</p>
+                        </td>
+                      </tr>
+                    )
+                  })}
                 </tbody>
                 <tfoot>
                   <tr>
@@ -218,7 +145,7 @@ const BillModal = ({ title, isModalOpen, showModal }: any) => {
                       <p>Subtotal</p>
                     </th>
                     <th className="text-right pt-6 font-medium" scope="row">
-                      <p>55555$</p>
+                      <p>{customer?.subTotal}$</p>
                     </th>
                   </tr>
                   <tr>
@@ -237,7 +164,9 @@ const BillModal = ({ title, isModalOpen, showModal }: any) => {
                       <p>Tax</p>
                     </th>
                     <th className="text-right pt-6" scope="row">
-                      <p className="text-red-600 font-medium">+444$</p>
+                      <p className="text-red-600 font-medium">
+                        +{customer?.totalAmount - customer?.subTotal}$
+                      </p>
                     </th>
                   </tr>
                   <tr>
@@ -256,7 +185,7 @@ const BillModal = ({ title, isModalOpen, showModal }: any) => {
                       <p>Total</p>
                     </th>
                     <th className="text-right pt-6" scope="row">
-                      <p className="font-medium">543432$</p>
+                      <p className="font-medium">{customer?.totalAmount}$</p>
                     </th>
                   </tr>
                 </tfoot>
@@ -281,8 +210,13 @@ const BillModal = ({ title, isModalOpen, showModal }: any) => {
         </div>
       </section>
       <div className="flex justify-end mt-4">
-        <Button type="primary" size="large" className="bg-indigo-800">
-          Yazdır
+        <Button
+          type="primary"
+          size="large"
+          className="bg-indigo-800"
+          onClick={handlePrint}
+        >
+          Print
         </Button>
       </div>
     </Modal>

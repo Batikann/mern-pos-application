@@ -6,15 +6,9 @@ import { useState, useEffect } from 'react'
 
 const Statistic = () => {
   const [data, setData] = useState([])
-
-  useEffect(() => {
-    asyncFetch()
-  }, [])
-
+  const [products, setProducts] = useState()
   const asyncFetch = () => {
-    fetch(
-      'https://gw.alipayobjects.com/os/bmw-prod/360c3eae-0c73-46f0-a982-4746a6095010.json'
-    )
+    fetch('http://localhost:5000/api/bills/get-all')
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => {
@@ -22,10 +16,27 @@ const Statistic = () => {
       })
   }
 
+  const getProducts = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/products/get-all', {
+        method: 'GET',
+      })
+      const val = await res.json()
+      setProducts(val)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    asyncFetch()
+    getProducts()
+  }, [])
+
   const config = {
     data,
-    xField: 'timePeriod',
-    yField: 'value',
+    xField: 'customerName',
+    yField: 'subTotal',
     xAxis: {
       range: [0, 1],
     },
@@ -33,8 +44,8 @@ const Statistic = () => {
   const configg = {
     appendPadding: 10,
     data,
-    angleField: 'value',
-    colorField: 'type',
+    angleField: 'subTotal',
+    colorField: 'customerName',
     radius: 1,
     innerRadius: 0.6,
     label: {
@@ -62,9 +73,14 @@ const Statistic = () => {
           overflow: 'hidden',
           textOverflow: 'ellipsis',
         },
-        content: 'AntV\nG2Plot',
+        content: 'Toplam\nDeger',
       },
     },
+  }
+
+  const totalAmount = () => {
+    const amount = data.reduce((total, item) => item.totalAmount + total, 0)
+    return `${amount.toFixed(2)}₺`
   }
   return (
     <div className="px-6 md:pb-20">

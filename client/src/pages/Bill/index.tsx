@@ -1,78 +1,87 @@
 import BillModal from '@/components/Modal/BillModal'
 import { Space, Table } from 'antd'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 const { Column } = Table
 
 interface DataType {
   key: React.Key
   name: string
   phoneNumber: string
-  createdDate: number
+  createdAt: string
   paymentMethod: string
-  totalPrice: string
+  totalAmount: string
 }
-
-const date = new Date()
-
-const data: DataType[] = [
-  {
-    key: '1',
-    name: 'Jhon Brown',
-    phoneNumber: '55555555',
-    createdDate: date.getDay(),
-    paymentMethod: 'Credit Card',
-    totalPrice: '555$',
-  },
-  {
-    key: '1',
-    name: 'Jhon Brown',
-    phoneNumber: '55555555',
-    createdDate: date.getDay(),
-    paymentMethod: 'Credit Card',
-    totalPrice: '555$',
-  },
-  {
-    key: '1',
-    name: 'Jhon Brown',
-    phoneNumber: '55555555',
-    createdDate: date.getDay(),
-    paymentMethod: 'Credit Card',
-    totalPrice: '555$',
-  },
-]
 
 const Bill = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const [bills, setBills] = useState()
+  const [customer, setCustomer] = useState()
   const showModal = () => {
     setIsModalOpen(!isModalOpen)
   }
+
+  const getBills = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/bills/get-all', {
+        method: 'GET',
+      })
+      const data = await res.json()
+      setBills(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getBills()
+  }, [])
   return (
     <>
-      <Table dataSource={data} className="px-6" bordered>
-        <Column title="Name" dataIndex="name" key="name" />
+      <Table dataSource={bills} className="px-6" bordered>
+        <Column title="Name" dataIndex="customerName" key="customerName" />
         <Column
           title="Phone Number"
-          dataIndex="phoneNumber"
-          key="phoneNumber"
+          dataIndex="customerPhoneNumber"
+          key="customerPhoneNumber"
         />
         <Column
           title="Created Date"
-          dataIndex="createdDate"
-          key="createdDate"
+          dataIndex="createdAt"
+          key="createdAt"
+          render={(_: any, record: DataType) => (
+            <Space size="middle">
+              <p>{record.createdAt.substring(0, 10)}</p>
+            </Space>
+          )}
         />
         <Column
           title="Payment Method"
           dataIndex="paymentMethod"
           key="paymentMethod"
         />
-        <Column title="Total Price" dataIndex="totalPrice" key="totalPrice" />
+        <Column
+          title="Total Price"
+          dataIndex="totalAmount"
+          key="totalAmount"
+          render={(_: any, record: DataType) => (
+            <Space size="middle">
+              <p>{record.totalAmount}$</p>
+            </Space>
+          )}
+        />
         <Column
           title="Action"
           key="action"
           className="text-indigo-700"
           render={(_: any, record: DataType) => (
             <Space size="middle">
-              <a onClick={showModal} href="#">
+              <a
+                onClick={() => {
+                  showModal()
+                  setCustomer(record)
+                }}
+                href="#"
+              >
                 Print
               </a>
             </Space>
@@ -83,6 +92,7 @@ const Bill = () => {
         title={'Bill'}
         showModal={showModal}
         isModalOpen={isModalOpen}
+        customer={customer}
       />
     </>
   )

@@ -1,15 +1,36 @@
 import CarouselContent from '@/components/Carousel'
 import { carouselCardData } from '@/data/CarouselData'
-import { Form, Input, Button, Carousel, Checkbox } from 'antd'
-import { Link } from 'react-router-dom'
+import { Form, Input, Button, Carousel, Checkbox, message } from 'antd'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const onFinish = async (values) => {
+    try {
+      const res = await fetch('http://localhost:5000/auth/login', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      })
+      const data = await res.json()
+      localStorage.setItem(
+        'user',
+        JSON.stringify({ username: data.username, email: data.email })
+      )
+      message.success('Login Successfull')
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+      message.error('Login Not Successfull Try Again!')
+    }
+  }
+
   return (
     <div className="h-screen">
       <div className="flex justify-between h-full">
         <div className="xl:px-20 px-10 w-full flex flex-col h-full justify-center relative">
           <h1 className="text-center text-5xl font-bold mb-2">LOGO</h1>
-          <Form layout="vertical">
+          <Form layout="vertical" onFinish={onFinish}>
             <Form.Item
               label="E-mail"
               name={'email'}

@@ -8,12 +8,16 @@ import {
   LogoutOutlined,
 } from '@ant-design/icons'
 import { Input, Badge } from 'antd'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 
 const Header = () => {
   const cart = useSelector((state) => state.cart)
-
+  const navigate = useNavigate()
+  const logOut = async () => {
+    localStorage.removeItem('user')
+    navigate('/login')
+  }
   return (
     <div className="border-b mb-6 ">
       <header className="py-4 px-6 flex items-center justify-between gap-10 max-w-7xl mx-auto ">
@@ -77,7 +81,7 @@ const Header = () => {
                 <p className="md:text-xs text-[10px]">Statistics</p>
               </Link>
             </li>
-            <li className="cursor-pointer">
+            <li className="cursor-pointer" onClick={logOut}>
               <a href="" className="hover:text-[#40a9ff] transition-all">
                 <LogoutOutlined className="md:text-2xl text-xl" />
                 <p className="md:text-xs text-[10px]">LogOut</p>

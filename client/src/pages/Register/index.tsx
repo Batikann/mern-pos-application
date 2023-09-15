@@ -1,15 +1,35 @@
 import CarouselContent from '@/components/Carousel'
 import { carouselCardData } from '@/data/CarouselData'
-import { Form, Input, Button, Carousel } from 'antd'
-import { Link } from 'react-router-dom'
+import { Form, Input, Button, Carousel, message } from 'antd'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 const Register = () => {
+  const navigate = useNavigate()
+  const [loading, setLoading] = useState(false)
+  const onFinish = (values) => {
+    setLoading(true)
+    try {
+      fetch('http://localhost:5000/auth/register', {
+        method: 'POST',
+        body: JSON.stringify(values),
+        headers: { 'Content-type': 'application/json; charset=UTF-8' },
+      })
+      message.success('Register Successfully')
+      navigate('/login')
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+      message.error('Register Not Successfull Try Again')
+    }
+  }
+
   return (
     <div className="h-screen">
       <div className="flex justify-between h-full">
         <div className="xl:px-20 px-10 w-full flex flex-col h-full justify-center relative">
           <h1 className="text-center text-5xl font-bold mb-2">LOGO</h1>
-          <Form layout="vertical">
+          <Form layout="vertical" onFinish={onFinish}>
             <Form.Item
               label="Kullanıcı Adı"
               name={'username'}
@@ -77,8 +97,9 @@ const Register = () => {
                 htmlType="submit"
                 className="w-full bg-indigo-800"
                 size="large"
+                loading={loading}
               >
-                Kaydol
+                Register
               </Button>
             </Form.Item>
           </Form>
